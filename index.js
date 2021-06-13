@@ -17,10 +17,42 @@ function createEmployeeRecords (employeeDataArray) {
         return createEmployeeRecord(array)
     })
 }
-// let createTimeInEvent = function (employee, date){
-//     createEmployeeRecord
-//     return employeeWithDate
-// }
+let createTimeInEvent = function (employee, dateStamp){
 
-    
+    let splitdateStamp = dateStamp.split(" ")
+    let hour = splitdateStamp[1]
+    let date = splitdateStamp[0] 
+    employee.timeInEvents.push({
+        type: "TimeIn",
+        hour: parseInt(hour, 10),
+        date: date
+
+    })
+    return employee
+}
+
+let createTimeOutEvent = function (employee, dateStamp) {
+    let splitdateStamp = dateStamp.split(" ")
+    let hour = splitdateStamp[1]
+    let date = splitdateStamp[0] 
+    employee.timeOutEvents.push({
+        type: "TimeOut",
+        hour: parseInt(hour, 10),
+        date: date
+
+    })
+    return employee
+}
+
+   let hoursWorkedOnDate = function(employee, findDate) {
+        let inEvent = employee.timeInEvents.find(function(event){
+            return event.date === findDate
+            console.log(findDate)
+        })
+        let outEvent = employee.timeOutEvents.find(function(event){
+            return event.date === findDate
+        })
+        return (outEvent.hour - inEvent.hour) /100
+
+   } 
     
